@@ -55,7 +55,10 @@ class Fase_03 extends Phaser.Scene {
 		this.load.image("tiles1", "assets/maps/first_asset.png");
 		this.load.image("tiles2", "assets/maps/solaria.png");
 		this.load.image('bullet', 'assets/images/bullet.png');
-		this.load.image('arrow', 'assets/images/arrow.png');
+		this.load.image('arrow', 'assets/images/arrow.png', );
+		this.load.image('fire_bow', 'assets/images/fire_bow.png');
+		this.load.image('common_bow', 'assets/images/common_bow.png');
+		this.load.image('aljava', 'assets/images/aljava.png');
 		this.load.image("tiles3", "assets/maps/top-down-forest-tileset.png");
 
 		this.load.tilemapTiledJSON("fase3", "assets/maps/fase.json");
