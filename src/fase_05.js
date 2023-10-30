@@ -378,7 +378,7 @@ class Fase_05 extends Phaser.Scene{
       strokeThickness: 3
     };
 
-    /*
+    
     // Dialogo inicial da fase com o orc expulso
     var doe0 = this.add.text(this.textPx+30, this.textPy-60, "Cuidado com os Orcs,\neles são muito fortes, \nmas não tão espertos.", orcE_txt_cfg);
     doe0.setScrollFactor(0);
@@ -389,8 +389,9 @@ class Fase_05 extends Phaser.Scene{
     doe1.alpha = 0;
 
     this.orcEdialog = this.tweens.createTimeline();
-    */
+    
     //dialogos dos orcs
+    /* Comentado p/ facilitar debugs
     this.orcEdialog.add({
       targets: doe0,
       alpha: 1,
@@ -418,7 +419,7 @@ class Fase_05 extends Phaser.Scene{
       duration: 500
     });
 
-
+    */
 
     // Dialogo com a pixie antes de matar o chefe
     var dp0 = this.add.text(this.textPx+30,this.textPy-80,"Aqui é perigoso!,\nFuja enquanto pode.",pixie_txt_cfg);
