@@ -11,6 +11,9 @@ class Fase_05 extends Phaser.Scene{
     this.load.image('tiles', 'assets/images/dungeon-16-16.png');
     this.load.image('bullet', 'assets/images/bullet.png');
     this.load.image('arrow', 'assets/images/arrow.png');
+    this.load.image('fire_bow', 'assets/images/fire_bow.png');
+    this.load.image('common_bow', 'assets/images/common_bow.png');
+    this.load.image('aljava', 'assets/images/aljava.png');
 
     this.load.spritesheet('player_sp', 'assets/spritesheets/player_sp.png', {frameWidth: 64, frameHeight: 64});
     this.load.spritesheet('pixie_sp', 'assets/spritesheets/pixie.png', {frameWidth: 26, frameHeight: 41});
