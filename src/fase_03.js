@@ -55,7 +55,7 @@ class Fase_03 extends Phaser.Scene {
 		this.load.image("tiles1", "assets/maps/first_asset.png");
 		this.load.image("tiles2", "assets/maps/solaria.png");
 		this.load.image('bullet', 'assets/images/bullet.png');
-		this.load.image('arrow', 'assets/images/arrow.png', );
+		this.load.spritesheet('arrow', 'assets/images/fire_bow.png', { frameWidth: 32, frameHeight: 32});
 		this.load.image('fire_bow', 'assets/images/fire_bow.png');
 		this.load.image('common_bow', 'assets/images/common_bow.png');
 		this.load.image('aljava', 'assets/images/aljava.png');
@@ -71,6 +71,7 @@ class Fase_03 extends Phaser.Scene {
 			tileWidth: 16,
 			tileHeight: 16,
 		});
+
 
 		this.tileset1 = this.map.addTilesetImage("tls_firstasset", "tiles1");
 		this.tileset2 = this.map.addTilesetImage("tls_topdown-forest", "tiles3");
