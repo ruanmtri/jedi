@@ -22,11 +22,11 @@ class player extends Actor {
     this.arrows.enableBody = true;
     this.arrows.physicsBodyType = Phaser.Physics.ARCADE;
     for (var i = 0; i < 5; i++){
-        var arrow = this.arrows.create(-10, -10, 'arrow');
-        arrow.setScale(0.2);
-        arrow.body.setSize(10, 10);
-        arrow.setActive(false);
-        arrow.setVisible(false);
+      var arrow = this.arrows.create(-10, -10, 'arrow');
+      arrow.setScale(0.2);
+      arrow.body.setSize(10, 10);
+      arrow.setActive(false);
+      arrow.setVisible(false);
     }
     this.has_bow = true;
     this.move_enable = true;
@@ -343,5 +343,9 @@ class player extends Actor {
     this.anims.play('die');
   }
 
+  trocaFlecha(){
+    //todo for
+    this.arrows.setTexture('arrow_fire');
+  }
 }
 

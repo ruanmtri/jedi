@@ -590,7 +590,7 @@ class Fase_05 extends Phaser.Scene{
 
     // Criacao das zonas de dialogo
     this.zoneDialog = true;
-
+    
     this.pixieZone = this.add.zone(70, 1310).setSize(150, 150);
     this.pixieZoneDlg = true;
     this.physics.world.enable(this.pixieZone);
@@ -607,6 +607,10 @@ class Fase_05 extends Phaser.Scene{
     this.orcCzone = this.add.zone(1185, 605).setSize(150, 150);
     this.physics.world.enable(this.orcCzone);
     this.physics.add.overlap(this.player, this.orcCzone, this.insideOrcCzone, null, this);
+
+    this.trocaFlechaZone = this.add.zone(500, 0).setSize(300, 300);
+    this.physics.world.enable(this.trocaFlechaZone);
+    this.physics.add.overlap(this.player, this.trocaFlechaZone, this.insideTrocaFlechaZone, null, this);
 
     // ligação das teclas de movimento
     this.keyA = this.input.keyboard.addKey('A');
@@ -919,6 +923,13 @@ class Fase_05 extends Phaser.Scene{
 
       this.orcCdialog.play();
       this.orcCdialog.on('complete', this.comecaCombateComChefao, this);
+    }
+  }
+
+  insideTrocaFlechaZone(){
+    if(this.trocaFlechaZone){
+      this.player.trocaFlecha();
+      this.physics.world.disable(this.trocaFlechaZone);
     }
   }
 
