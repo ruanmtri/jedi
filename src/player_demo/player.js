@@ -27,6 +27,10 @@ class player extends Actor {
       arrow.body.setSize(10, 10);
       arrow.setActive(false);
       arrow.setVisible(false);
+      arrow.setTexture('arrow_normal');
+      arrow.setName('flecha');
+      
+      console.log(arrow);
     }
     this.has_bow = true;
     this.move_enable = true;
@@ -343,9 +347,6 @@ class player extends Actor {
     this.anims.play('die');
   }
 
-  trocaFlecha(){
-    //todo for
-    this.arrows.setTexture('arrow_fire');
-  }
+  
 }
 
