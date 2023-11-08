@@ -10,8 +10,8 @@ class Fase_05 extends Phaser.Scene{
     // carregando spritesheets
     this.load.image('tiles', 'assets/images/dungeon-16-16.png');
     this.load.image('bullet', 'assets/images/bullet.png');
-    this.load.image('arrow', 'assets/images/arrow.png');
-    this.load.image('fire_bow', 'assets/images/fire_bow.png');
+    this.load.image('arrow_normal', 'assets/images/arrow_normal.png');
+    this.load.image('arrow_fire', 'assets/images/arrow_fire.png');
     this.load.image('common_bow', 'assets/images/common_bow.png');
     this.load.image('aljava', 'assets/images/aljava.png');
 
@@ -608,7 +608,7 @@ class Fase_05 extends Phaser.Scene{
     this.physics.world.enable(this.orcCzone);
     this.physics.add.overlap(this.player, this.orcCzone, this.insideOrcCzone, null, this);
 
-    this.trocaFlechaZone = this.add.zone(500, 0).setSize(300, 300);
+    this.trocaFlechaZone = this.add.zone(200, 600).setSize(300, 300);
     this.physics.world.enable(this.trocaFlechaZone);
     this.physics.add.overlap(this.player, this.trocaFlechaZone, this.insideTrocaFlechaZone, null, this);
 
@@ -928,9 +928,17 @@ class Fase_05 extends Phaser.Scene{
 
   insideTrocaFlechaZone(){
     if(this.trocaFlechaZone){
-      this.player.trocaFlecha();
+      this.trocaFlecha();
       this.physics.world.disable(this.trocaFlechaZone);
     }
+  }
+
+  trocaFlecha(){
+    //for (let v of this.player.arrows.getMatching('name', 'flecha')){
+    for (let v of this.player.arrows.getChildren()){
+      v.setTexture('arrow_fire');
+      v.body.reset(-10, -10);
+    };
   }
 
   errou(){
