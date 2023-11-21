@@ -55,6 +55,15 @@ class Fase_05 extends Phaser.Scene{
     this.tileset8 = this.map.addTilesetImage('vila3', 'tiles_vila3');
     console.log('CreateTiles');
 
+
+    //Insere a aljava no cenario
+    var aljava = this.add.image(1300, 1300, 'aljava');
+    aljava.setDepth(1);
+    //Define escala
+    aljava.setScale(0.15);
+    //Define o centro
+    aljava.setOrigin(0.5, 0.5);
+
     var tilesets = [
       'estruturas1_5',
       'forest',
