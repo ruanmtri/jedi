@@ -55,14 +55,15 @@ class Fase_05 extends Phaser.Scene{
     this.tileset8 = this.map.addTilesetImage('vila3', 'tiles_vila3');
     console.log('CreateTiles');
 
+    this.dano = 3;
 
     //Insere a aljava no cenario
-    var aljava = this.add.image(1300, 1300, 'aljava');
-    aljava.setDepth(1);
+    this.aljava = this.add.image(1300, 1300, 'aljava');
+    this.aljava.setDepth(1);
     //Define escala
-    aljava.setScale(0.15);
+    this.aljava.setScale(0.1);
     //Define o centro
-    aljava.setOrigin(0.5, 0.5);
+    this.aljava.setOrigin(0.5, 0.5);
 
     var tilesets = [
       'estruturas1_5',
@@ -260,7 +261,7 @@ class Fase_05 extends Phaser.Scene{
     // criação da colisão com paredes
     this.wallsLayer1.setCollisionBetween(0, 10000,true);
     this.wallsLayer2.setCollisionBetween(0, 10000,true);
-    this.wallsLayer3.setCollisionBetween(0, 10000,true);
+    this.wallsLayer3.setCollisionBetween(0, 2000,true);
     this.wallsLayer4.setCollisionBetween(0, 10000,true);
     this.wallsLayer5.setCollisionBetween(0, 10000,true);
     this.wallsLayer6.setCollisionBetween(0, 10000,false);
@@ -617,7 +618,8 @@ class Fase_05 extends Phaser.Scene{
     this.physics.world.enable(this.orcCzone);
     this.physics.add.overlap(this.player, this.orcCzone, this.insideOrcCzone, null, this);
 
-    this.trocaFlechaZone = this.add.zone(200, 600).setSize(300, 300);
+    //this.trocaFlechaZone = this.add.zone(200, 600).setSize(300, 300);
+    this.trocaFlechaZone = this.add.zone(1300, 1300).setSize(25.5, 25.5);
     this.physics.world.enable(this.trocaFlechaZone);
     this.physics.add.overlap(this.player, this.trocaFlechaZone, this.insideTrocaFlechaZone, null, this);
 
@@ -656,7 +658,8 @@ class Fase_05 extends Phaser.Scene{
   enemyHit (player, enemy){
     //player.disableBody(true, false);
     //console.log("enemy hit", player);
-    player.getDamage(3);
+
+    player.getDamage(this.dano);
     if (player.getHPValue() <= 0){
       player.die();
     }
@@ -938,6 +941,7 @@ class Fase_05 extends Phaser.Scene{
   insideTrocaFlechaZone(){
     if(this.trocaFlechaZone){
       this.trocaFlecha();
+      this.aljava.setVisible(false);
       this.physics.world.disable(this.trocaFlechaZone);
     }
   }
@@ -945,6 +949,7 @@ class Fase_05 extends Phaser.Scene{
   trocaFlecha(){
     //for (let v of this.player.arrows.getMatching('name', 'flecha')){
     for (let v of this.player.arrows.getChildren()){
+      this.dano = 8000;
       v.setTexture('arrow_fire');
       v.body.reset(-10, -10);
     };
