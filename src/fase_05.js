@@ -55,8 +55,6 @@ class Fase_05 extends Phaser.Scene{
     this.tileset8 = this.map.addTilesetImage('vila3', 'tiles_vila3');
     console.log('CreateTiles');
 
-    this.dano = 3;
-
     //Insere a aljava no cenario
     this.aljava = this.add.image(1300, 1300, 'aljava');
     this.aljava.setDepth(1);
@@ -64,6 +62,8 @@ class Fase_05 extends Phaser.Scene{
     this.aljava.setScale(0.1);
     //Define o centro
     this.aljava.setOrigin(0.5, 0.5);
+
+    this.boolean_arrow_fire = false;
 
     var tilesets = [
       'estruturas1_5',
@@ -175,7 +175,6 @@ class Fase_05 extends Phaser.Scene{
 
     this.orc20 = new orc(this, 737.5, 491.5, 'orc_macho_lanca_sp', 'orc_macho_lanca_sp');
     this.orc20.setScale(0.5);
-
 
     this.bullets = this.physics.add.group();
     for (let i = 0; i <= 8; i++){
@@ -659,7 +658,7 @@ class Fase_05 extends Phaser.Scene{
     //player.disableBody(true, false);
     //console.log("enemy hit", player);
 
-    player.getDamage(this.dano);
+    player.getDamage(5);
     if (player.getHPValue() <= 0){
       player.die();
     }
@@ -943,16 +942,16 @@ class Fase_05 extends Phaser.Scene{
       this.trocaFlecha();
       this.aljava.setVisible(false);
       this.physics.world.disable(this.trocaFlechaZone);
+      this.boolean_arrow_fire = true;
     }
   }
 
   trocaFlecha(){
     //for (let v of this.player.arrows.getMatching('name', 'flecha')){
     for (let v of this.player.arrows.getChildren()){
-      this.dano = 8000;
       v.setTexture('arrow_fire');
       v.body.reset(-10, -10);
-    };
+    }
   }
 
   errou(){
@@ -995,7 +994,12 @@ function projectilHitActor(actor, projectil){
   projectil.setVelocity(0, 0);
   projectil.body.reset(-10, -10);
 
-  actor.getDamage(22);
+  if (this.boolean_arrow_fire){
+    actor.getDamage(50);
+  } else {
+    actor.getDamage(25);
+  }
+
   if (actor.getHPValue() == 0){
     actor.die();
     //this.physics.world.removeCollider(collider);
