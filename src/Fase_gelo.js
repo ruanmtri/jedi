@@ -71,8 +71,6 @@ class Fase_gelo extends Phaser.Scene {
         this.objLayer.setCollisionBetween(0, 2000, true);
         this.physics.add.collider(this.player, this.objLayer);
 
-
-
         // ligação das teclas de movimento
         this.keyA = this.input.keyboard.addKey('A');
         this.keyD = this.input.keyboard.addKey('D');
@@ -212,14 +210,56 @@ class Fase_gelo extends Phaser.Scene {
         this.physics.add.overlap(this.player.arrows, this.bat5, damageEnemy, null, this);
         this.physics.add.overlap(this.player.arrows, this.bat6, damageEnemy, null, this);
 
+        // Zona de gelo
+        //this.zoneGelo = this.add.group();
+        this.zoneGelo = this.add.zone(700, 0).setSize(480, 470); 
+        this.zoneGelo2 = this.add.zone(1470, 330).setSize(250, 600); 
+
+        // Adicionar as camadas ao grupo
+        //this.zoneGelo.add(this.iceLayerVert);
+        //this.zoneGelo.add(this.iceLayerHor);
+        
+        this.physics.world.enable(this.zoneGelo2);
+        this.physics.add.overlap(this.player, this.zoneGelo2, this.playerOnIce, null, this);
+        
+        this.physics.world.enable(this.zoneGelo);
+        this.physics.add.overlap(this.player, this.zoneGelo, this.playerOnIce, null, this);
+
+        this.isSliding = false; // Variável para controlar o deslizamento
+        this.slideDuration = 2000; // Duração do deslizamento em milissegundos
+
+        this.player.on_ice = true;
+
     }
 
     moveE(Enemy, speedX, speedY) {
         Enemy.x += speedX*0.5;
         Enemy.y += speedY*0.5;
     }
-    
+
+    slide(player) {
+        if (this.isSliding) {
+            let elapsed = this.time.now - this.slideStartTime;
+            if (elapsed < this.slideDuration) {
+                // Aplica uma força de deslizamento ao jogador
+                player.body.velocity.x *= 1.05; // Aumenta a velocidade em 5%
+                player.body.velocity.y *= 1.05; // Aumenta a velocidade em 5%
+            } else {
+                this.isSliding = false;
+            }
+        }
+    }
+
     update() {
+        if (this.isSliding) {
+            this.slide(this.player);
+        }
+
+        if (this.physics.overlap(this.player, this.zoneGelo2) || this.physics.overlap(this.player, this.zoneGelo)){
+            this.player.on_ice = true;
+        }else{
+            this.player.on_ice =false;
+        }
         if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
             if (this.dialog.isActive) {
                 this.dialog.nextDlg();
@@ -297,29 +337,13 @@ class Fase_gelo extends Phaser.Scene {
         this.dialog.updateDlgBox(["QUER SAIR? SÓ POR CIMA DO MEU CADAVER"]);
     }
 
-    playerOverlapEnemy(player, enemy_boss) {
-        // Ação a ser executada quando o jogador sobrepor o inimigo
-        console.log('O jogador tomou dano!');
-
-        // ...resto do código para lidar com o dano ao jogador...
-    }
+ 
 
 
     deleteCollision() {
         collisionZoneExit.destroy();
         collisionZoneExit = this.physics.add.overlap(this.player, this.zoneExitBoss, this.changeFase, null, this);
     }
-
-
-    changeFase() {
-        console.log('Saindo da fase');
-    }
-
-    // createAnimation(){
-    //     this.anims.create({
-
-    //     });
-    // }
 
 }
 
@@ -498,7 +522,6 @@ function acertou_fcn(ptr){
 function errou_fcn(ptr){
     this.dialog.updateDlgBox(this.textQuestao1);
 }
-
 
 function damagePlayer() {
     if (!this.isInvulnerable) {
