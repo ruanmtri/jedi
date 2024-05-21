@@ -13,6 +13,7 @@ class player extends Actor {
     this.setOffset(this.width/4, this.height/3);
     this.vx = 0;
     this.vy = 0;
+    this.on_ice = false;
 
     this.canvas = this.scene.sys.game.canvas;
     console.log('cw', this.canvas.width);
@@ -144,24 +145,45 @@ class player extends Actor {
 
     if (this.scene.keyD?.isDown) {
         //console.log(this.velocity)
+        if(this.on_ice == false){
         this.vx = ((this.vx<210)?this.vx+20:210);
+        }else{
+        this.vx = ((this.vx<210)?this.vx+4:40);
+        }
     }
     else if (this.scene.keyA?.isDown) {
+      if(this.on_ice == false){
       this.vx = ((this.vx>-210)?this.vx-20:-210);
+      }else{
+      this.vx = ((this.vx>-210)?this.vx-4:-40);
+      }
     }
     else{
-        this.vx=0;
+        //this.vx=0;
+        if(this.on_ice == false){
+          this.vx=0;
+        }
     }
 
     // velocidade vertical
     if (this.scene.keyW.isDown) {
-      this.vy = ((this.vy>-210)?this.vy-20:-210);
-    }
+      if(this.on_ice == false){
+      this.vy = ((this.vy>-210)?this.vy-20:-110);
+      }else{
+      this.vy = ((this.vy>-210)?this.vy-4:-40);
+    }}
     else if (this.scene.keyS.isDown) {
+      if(this.on_ice == false){
         this.vy = ((this.vy<210)?this.vy+20:210);
+      }else{
+      this.vy = ((this.vy<210)?this.vy+4:40);
+      }
     }
     else{
-        this.vy=0;
+        //this.vy=0;
+        if(this.on_ice == false){
+          this.vy=0;
+        }
     }    
     
     // Se estiver movendo na diagonal, ajusta a velocidade
