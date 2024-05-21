@@ -140,6 +140,8 @@ class player extends Actor {
 
   set_player_velocity(){
     
+    const isDiagonalMovement = (this.scene.keyW.isDown || this.scene.keyS.isDown) && (this.scene.keyA.isDown || this.scene.keyD.isDown);
+
     if (this.scene.keyD?.isDown) {
         //console.log(this.velocity)
         this.vx = ((this.vx<210)?this.vx+20:210);
@@ -161,6 +163,13 @@ class player extends Actor {
     else{
         this.vy=0;
     }    
+    
+    // Se estiver movendo na diagonal, ajusta a velocidade
+    if (isDiagonalMovement) {
+      this.vx *= 0.875; // Ajusta para metade da velocidade na diagonal
+      this.vy *= 0.875;
+    }
+
     this.setVelocityX(this.vx); 
     this.setVelocityY(this.vy); 
 
