@@ -214,11 +214,19 @@ class Fase_gelo extends Phaser.Scene {
         //this.zoneGelo = this.add.group();
         this.zoneGelo = this.add.zone(700, 0).setSize(480, 470); 
         this.zoneGelo2 = this.add.zone(1470, 330).setSize(250, 600); 
+        this.zoneGelo3 = this.add.zone(810, 630).setSize(680, 520); 
+        this.zoneGelo4 = this.add.zone(1270, 480).setSize(250, 300); 
 
         // Adicionar as camadas ao grupo
         //this.zoneGelo.add(this.iceLayerVert);
         //this.zoneGelo.add(this.iceLayerHor);
-        
+
+        this.physics.world.enable(this.zoneGelo4);
+        this.physics.add.overlap(this.player, this.zoneGelo2, this.playerOnIce, null, this);
+
+        this.physics.world.enable(this.zoneGelo3);
+        this.physics.add.overlap(this.player, this.zoneGelo2, this.playerOnIce, null, this);       
+
         this.physics.world.enable(this.zoneGelo2);
         this.physics.add.overlap(this.player, this.zoneGelo2, this.playerOnIce, null, this);
         
@@ -255,7 +263,7 @@ class Fase_gelo extends Phaser.Scene {
             this.slide(this.player);
         }
 
-        if (this.physics.overlap(this.player, this.zoneGelo2) || this.physics.overlap(this.player, this.zoneGelo)){
+        if (this.physics.overlap(this.player, this.zoneGelo4) || this.physics.overlap(this.player, this.zoneGelo3) || this.physics.overlap(this.player, this.zoneGelo2) || this.physics.overlap(this.player, this.zoneGelo)){
             this.player.on_ice = true;
         }else{
             this.player.on_ice =false;
