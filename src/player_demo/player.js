@@ -148,14 +148,14 @@ class player extends Actor {
         if(this.on_ice == false){
         this.vx = ((this.vx<210)?this.vx+20:210);
         }else{
-        this.vx = ((this.vx<210)?this.vx+4:40);
+        this.vx = ((this.vx<80)?this.vx+4:80);
         }
     }
     else if (this.scene.keyA?.isDown) {
       if(this.on_ice == false){
       this.vx = ((this.vx>-210)?this.vx-20:-210);
       }else{
-      this.vx = ((this.vx>-210)?this.vx-4:-40);
+      this.vx = ((this.vx>-80)?this.vx-4:-80);
       }
     }
     else{
@@ -170,13 +170,13 @@ class player extends Actor {
       if(this.on_ice == false){
       this.vy = ((this.vy>-210)?this.vy-20:-110);
       }else{
-      this.vy = ((this.vy>-210)?this.vy-4:-40);
+      this.vy = ((this.vy>-80)?this.vy-4:-80);
     }}
     else if (this.scene.keyS.isDown) {
       if(this.on_ice == false){
         this.vy = ((this.vy<210)?this.vy+20:210);
       }else{
-      this.vy = ((this.vy<210)?this.vy+4:40);
+      this.vy = ((this.vy<80)?this.vy+4:80);
       }
     }
     else{
